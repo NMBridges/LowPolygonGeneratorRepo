@@ -97,8 +97,8 @@ public:
 			for (int q = 0; q < xdetailLevel; q++)
 			{
 				int item = (int)(i * xdetailLevel + q);
-				double perc1 = (q == 0 || q == xdetailLevel) ? 0 : ((double)std::rand() / RAND_MAX - 0.5) * amount * 0.5 / ((double)xdetailLevel - 1.0);
-				double perc2 = (i == 0 || i == ydetailLevel) ? 0 : ((double)std::rand() / RAND_MAX - 0.5) * amount * 0.5 / ((double)ydetailLevel - 1.0);
+				double perc1 = (q == 0 || q == xdetailLevel - 1) ? 0 : ((double)std::rand() / RAND_MAX - 0.5) * amount * 0.5 / ((double)xdetailLevel - 1.0);
+				double perc2 = (i == 0 || i == ydetailLevel - 1) ? 0 : ((double)std::rand() / RAND_MAX - 0.5) * amount * 0.5 / ((double)ydetailLevel - 1.0);
 				x[item] = x[item] + perc1;
 				y[item] = y[item] + perc2;
 				if (x[item] < 0.0)

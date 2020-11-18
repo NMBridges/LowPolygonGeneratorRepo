@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		int qualityX = 5;
-		int qualityY = 5;
+		int qualityX = 6;
+		int qualityY = 6;
 		int winHei = 800;
 		SDL_Window *window = SDL_CreateWindow("LowPolyGenerator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winHei, winHei, SDL_WINDOW_SHOWN);
 		SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
