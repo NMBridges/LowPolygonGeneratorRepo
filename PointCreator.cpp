@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <array>
 #include <SDL_image.h>
+#include <thread>
+#include <vector>
 
 class PointCreator
 {
@@ -62,10 +64,6 @@ public:
 
 	void createPoints(int xdetailLevel, int ydetailLevel)
 	{
-		//detailSquared = xdetailLevel * ydetailLevel;
-		//x = new double[detailSquared];
-		//y = new double[detailSquared];
-
 		srand(time_t(seed));
 
 		for (int i = 0; i < ydetailLevel; i++)
@@ -74,9 +72,7 @@ public:
 			{
 				int item = (int)(i * xdetailLevel + q);
 				double perc1 = q / ((double)xdetailLevel - 1.0);
-				//double perc1 = (((double)std::rand()) / RAND_MAX);
 				double perc2 = i / ((double)ydetailLevel - 1.0);
-				//double perc2 = (((double)std::rand()) / RAND_MAX);
 				x[item] = perc1;
 				y[item] = perc2;
 				//std::cout << "Item " << item << ": " << x[item] << ", " << y[item] << std::endl;
@@ -162,16 +158,16 @@ public:
 					if (isInTriangle(Vector2(ex, ey), Vector2(x1, y1), Vector2(x2, y2), Vector2(x3, y3)))
 					{
 						Uint32 data = getPixel(imageSurf, (int)((double)ex / (double)windowWidth * (double)imageSurf->w), (int)((double)ey / (double)windowHeight * (double)imageSurf->h));
-						
+
 						double count = colors[i].w;
 						double totalr = colors[i].x * count;
 						double totalg = colors[i].y * count;
 						double totalb = colors[i].z * count;
-						
+
 						int b = (data >> 16) & 255;
 						int g = (data >> 8) & 255;
 						int r = data & 255;
-						
+
 						totalr += r;
 						totalg += g;
 						totalb += b;
@@ -219,6 +215,11 @@ public:
 		}
 
 		std::cout << "Finished delegating colors" << std::endl;
+	}
+
+	void scanColor(int a, int b, int i, Vector4 &col)
+	{
+		
 	}
 
 	double sign(Vector2 a, Vector2 b, Vector2 c)
