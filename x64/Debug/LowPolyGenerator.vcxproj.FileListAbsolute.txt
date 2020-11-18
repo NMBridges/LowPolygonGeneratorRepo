@@ -1,0 +1,6 @@
+C:\Users\scrat\Documents\Development\LowPolyGenerator\LowPolyGenerator\x64\Debug\LowPolyGenerator.exe
+C:\Users\scrat\Documents\Development\LowPolyGenerator\LowPolyGenerator\x64\Debug\LowPolyGenerator.pdb
+C:\Users\scrat\OneDrive\Documents\Development\LowPolyGenerator\LowPolyGenerator\x64\Debug\LowPolyGenerator.exe
+C:\Users\scrat\OneDrive\Documents\Development\LowPolyGenerator\LowPolyGenerator\x64\Debug\LowPolyGenerator.pdb
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\x64\Debug\LowPolyGenerator.exe
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\x64\Debug\LowPolyGenerator.pdb

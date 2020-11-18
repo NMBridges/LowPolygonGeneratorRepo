@@ -1,0 +1,50 @@
+﻿  main.cpp
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(60,24): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(399,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(400,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(401,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(407,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(408,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(409,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(418,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(419,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(420,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(426,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(427,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(428,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(437,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(438,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(439,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(445,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(446,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(447,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(527,12): warning C4101: 'srcR': unreferenced local variable
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\main.cpp(22,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\main.cpp(24,36): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Matrix.cpp
+  PointCreator.cpp
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(60,24): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(399,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(400,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(401,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(407,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(408,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(409,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(418,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(419,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(420,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(426,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(427,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(428,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(437,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(438,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(439,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(445,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(446,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(447,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\PointCreator.cpp(527,12): warning C4101: 'srcR': unreferenced local variable
+  Vector2.cpp
+  Vector3.cpp
+  Vector4.cpp
+  Generating Code...
+  LowPolyGenerator.vcxproj -> C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\LPGRep\x64\Debug\LowPolyGenerator.exe
