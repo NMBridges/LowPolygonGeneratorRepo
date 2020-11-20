@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		int qualityX = 6;
-		int qualityY = 6;
+		int qualityX = 24;
+		int qualityY = 24;
 		int winHei = 800;
 		SDL_Window *window = SDL_CreateWindow("LowPolyGenerator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winHei, winHei, SDL_WINDOW_SHOWN);
 		SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
@@ -19,9 +19,9 @@ int main(int argc, char *argv[])
 		SDL_RenderClear(renderer);
 
 		PointCreator pcTEMP = PointCreator(1000, winHei, qualityX, qualityY, renderer);
-		PointCreator pc = PointCreator(winHei * pcTEMP.returnRatio(), winHei, qualityX, qualityY, renderer);
+		PointCreator pc = PointCreator((int)(winHei * pcTEMP.returnRatio()), winHei, qualityX, qualityY, renderer);
 
-		SDL_SetWindowSize(window, winHei * pc.returnRatio(), winHei);
+		SDL_SetWindowSize(window, (int)(winHei * pc.returnRatio()), winHei);
 		SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderPresent(renderer);
