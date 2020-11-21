@@ -369,7 +369,7 @@ public:
 
 		// create texture
 
-		imageSurf = IMG_Load("assets/jfk.jpg");
+		imageSurf = IMG_Load("assets/steph-curry.jpg");
 		if (!imageSurf)
 		{
 			std::cout << "Failed to make surface " << std::endl;
