@@ -1,15 +1,5 @@
 ﻿  main.cpp
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(494,57): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(494,48): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(494,39): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
-  PointCreator.cpp
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(494,57): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(494,48): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(494,39): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
-  Vector3.cpp
-  Vector3Int.cpp
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\Vector3Int.cpp(14,7): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\Vector3Int.cpp(15,7): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\Vector3Int.cpp(16,7): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  Generating Code...
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(495,57): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(495,48): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
+C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(495,39): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
   LowPolyGenerator.vcxproj -> C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\x64\Debug\LowPolyGenerator.exe

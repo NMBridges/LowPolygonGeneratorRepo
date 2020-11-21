@@ -31,6 +31,12 @@
     <Image Include="..\..\..\..\Creative Cloud Files\Illustrator Files\GerMogMas.jpg" />
     <Image Include="..\..\..\..\Downloads\player.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GPU_Acceleration.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="kernel.cu" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -129,13 +135,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2_image-2.0.5\include;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\include;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2_image-2.0.5\include;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2_image-2.0.5\lib\x64;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\lib\x64;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2_image-2.0.5\lib\x64;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;cuda.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,15 +152,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2_image-2.0.5\include;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\include;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2_image-2.0.5\include;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2_image-2.0.5\lib\x64;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\lib\x64;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2_image-2.0.5\lib\x64;C:\Users\scrat\OneDrive\Documents\Dev\SDLLibraries\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;cuda.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

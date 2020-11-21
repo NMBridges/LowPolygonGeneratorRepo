@@ -11,9 +11,9 @@ public:
 
 	Vector3Int()
 	{
-		x = 0.0;
-		y = 0.0;
-		z = 0.0;
+		x = 0;
+		y = 0;
+		z = 0;
 	}
 
 	Vector3Int(int inx, int iny, int inz)
