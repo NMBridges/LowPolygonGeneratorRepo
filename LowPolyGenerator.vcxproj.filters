@@ -21,9 +21,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PointCreator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,6 +36,9 @@
     <ClCompile Include="Vector3Int.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PointCreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\Downloads\player.jpg">
@@ -49,11 +49,11 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GPU_Acceleration.h">
+    <ClInclude Include="kernel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="kernel.cu" />
+    <CudaCompile Include="kernel.cu" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 #include "Vector3.cpp"
 #include "Vector2.cpp"
 #include "Vector4.cpp"
-#include "Vector3Int.cpp"
+//#include "Vector3Int.cpp"
 
 class Matrix
 {

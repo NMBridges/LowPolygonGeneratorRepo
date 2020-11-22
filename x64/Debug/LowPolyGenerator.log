@@ -1,5 +1,4 @@
-﻿  main.cpp
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(495,57): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(495,48): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
-C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\PointCreator.cpp(495,39): warning C4244: 'argument': conversion from 'double' to 'Uint8', possible loss of data
+﻿  PointCreator.cpp
+  main.cpp
+  Generating Code...
   LowPolyGenerator.vcxproj -> C:\Users\scrat\OneDrive\Documents\Dev\LowPolygonGenerator\x64\Debug\LowPolyGenerator.exe

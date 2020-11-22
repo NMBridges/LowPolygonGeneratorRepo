@@ -5,7 +5,7 @@
 #include <SDL_image.h>
 #include <thread>
 #include <vector>
-#include "GPU_Acceleration.h"
+#include "kernel.h"
 
 class PointCreator
 {
@@ -356,7 +356,7 @@ private:
 
 public:
 
-	PointCreator(int width, int height, int xdet, int ydet, SDL_Renderer *rend)
+	PointCreator(int width, int height, int xdet, int ydet, int seedin, SDL_Renderer *rend)
 	{
 		xdetail = xdet;
 		ydetail = ydet;
@@ -364,13 +364,13 @@ public:
 		x = new double[detailSquared];
 		y = new double[detailSquared];
 		length = factOverFact(detailSquared, detailSquared - 3) / factorial(3);
-		seed = 1;
+		seed = seedin;
 		triangles = new Vector3Int[length];
 		workingIndex = new int[length];
 
 		// create texture
 
-		imageSurf = IMG_Load("assets/playboicarti1.jpg");
+		imageSurf = IMG_Load("assets/arnav.png");
 		if (!imageSurf)
 		{
 			std::cout << "Failed to make surface " << std::endl;
@@ -492,7 +492,7 @@ public:
 			for (int vert = 0; vert < windowHeight; vert++)
 			{
 				Vector3 cOLOR = pointColors[hori + vert * windowWidth];
-				SDL_SetRenderDrawColor(rend, cOLOR.x, cOLOR.y, cOLOR.z, 255);
+				SDL_SetRenderDrawColor(rend, (int)cOLOR.x, (int)cOLOR.y, (int)cOLOR.z, 255);
 				SDL_RenderDrawPoint(rend, hori, vert);
 				counter++;
 			}
@@ -507,7 +507,7 @@ public:
 
 		std::cout << "LENGTH OF X AND Y: " << pointLength << std::endl;
 
-		// creates triangles for every combination of three points
+		// creates triangles for every combination of three points. Eventually accelerate with the GPU
 
 		int triCoun = 0;
 		for (int i = 0; i < pointLength - 2; i++)
@@ -524,24 +524,9 @@ public:
 		}
 		
 		// orders the points in each triangle set in counterclockwise order
-
-		std::thread p1(&PointCreator::recalcTriangles, 0, (int)floor(length / 8), x, y, std::ref(triangles));
-		std::thread p2(&PointCreator::recalcTriangles, (int)floor(length / 8), (int)floor(length / 4), x, y, std::ref(triangles));
-		std::thread p3(&PointCreator::recalcTriangles, (int)floor(length / 4), (int)floor(length * 3 / 8), x, y, std::ref(triangles));
-		std::thread p4(&PointCreator::recalcTriangles, (int)floor(length * 3 / 8), (int)floor(length / 2), x, y, std::ref(triangles));
-		std::thread p5(&PointCreator::recalcTriangles, (int)floor(length / 2), (int)floor(length * 5 / 8), x, y, std::ref(triangles));
-		std::thread p6(&PointCreator::recalcTriangles, (int)floor(length * 5 / 8), (int)floor(length * 3 / 4), x, y, std::ref(triangles));
-		std::thread p7(&PointCreator::recalcTriangles, (int)floor(length * 3 / 4), (int)floor(length * 7 / 8), x, y, std::ref(triangles));
-		std::thread p8(&PointCreator::recalcTriangles, (int)floor(length * 7 / 8), length, x, y, std::ref(triangles));
-	
-		p1.join();
-		p2.join();
-		p3.join();
-		p4.join();
-		p5.join();
-		p6.join();
-		p7.join();
-		p8.join();
+		
+		Kernel kernelCaller = Kernel();
+		kernelCaller.recalccc(x, y, std::ref(triangles), pointLength, length);
 
 		// instantiate list that keeps track of whether each triangle has other points inside it (1 = good, 0 = bad)
 
@@ -553,45 +538,15 @@ public:
 
 		// goes through every point and checks if it is inside any triangles; then deactivates that triangle
 
-		std::thread p9(&PointCreator::deactivateTriangles, 0, (int)floor(pointLength / 8), length, x, y, std::ref(workingIndex), std::ref(triangles));
-		std::thread p10(&PointCreator::deactivateTriangles, (int)floor(pointLength / 8), (int)floor(pointLength / 4), length, x, y, std::ref(workingIndex), std::ref(triangles));
-		std::thread p11(&PointCreator::deactivateTriangles, (int)floor(pointLength / 4), (int)floor(pointLength * 3 / 8), length, x, y, std::ref(workingIndex), std::ref(triangles));
-		std::thread p12(&PointCreator::deactivateTriangles, (int)floor(pointLength * 3 / 8), (int)floor(pointLength / 2), length, x, y, std::ref(workingIndex), std::ref(triangles));
-		std::thread p13(&PointCreator::deactivateTriangles, (int)floor(pointLength / 2), (int)floor(pointLength * 5 / 8), length, x, y, std::ref(workingIndex), std::ref(triangles));
-		std::thread p14(&PointCreator::deactivateTriangles, (int)floor(pointLength * 5 / 8), (int)floor(pointLength * 3 / 4), length, x, y, std::ref(workingIndex), std::ref(triangles));
-		std::thread p15(&PointCreator::deactivateTriangles, (int)floor(pointLength * 3 / 4), (int)floor(pointLength * 7 / 8), length, x, y, std::ref(workingIndex), std::ref(triangles));
-		std::thread p16(&PointCreator::deactivateTriangles, (int)floor(pointLength * 7 / 8), pointLength, length, x, y, std::ref(workingIndex), std::ref(triangles));
-
-		p9.join();
-		p10.join();
-		p11.join();
-		p12.join();
-		p13.join();
-		p14.join();
-		p15.join();
-		p16.join();
-	}
-
-	void drawPoints(SDL_Renderer *rend)
-	{
-		SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
-		for (int i = 0; i < detailSquared; i++)
-		{
-			SDL_RenderDrawPoint(rend, (int)(x[i] * windowWidth), (int)(y[i] * windowHeight));
-		}
-		
+		kernelCaller.deactivate(x, y, xdetail, ydetail, triangles, std::ref(workingIndex), pointLength, length);
 	}
 
 	void drawTriangles(SDL_Renderer *rend)
 	{
-		SDL_Rect destR;
-		destR.x = 0;
-		destR.y = 0;
-		destR.w = imageSurf->w;
-		destR.h = 1000;
 		SDL_RenderCopy(rend, imageTex, NULL, NULL);
 		SDL_RenderPresent(rend);
-		SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
+		//SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
+		
 		std::cout << length << std::endl;
 
 		usedLength = 0;
@@ -601,15 +556,15 @@ public:
 			if (workingIndex[i] == 1)
 			{
 				usedLength++;
-				int x1 = (int)(x[triangles[i].x] * windowWidth);
+				/*int x1 = (int)(x[triangles[i].x] * windowWidth);
 				int y1 = (int)(y[triangles[i].x] * windowHeight);
 				int x2 = (int)(x[triangles[i].y] * windowWidth);
 				int y2 = (int)(y[triangles[i].y] * windowHeight);
 				int x3 = (int)(x[triangles[i].z] * windowWidth);
 				int y3 = (int)(y[triangles[i].z] * windowHeight);
-				//SDL_RenderDrawLine(rend, x1, y1, x2, y2);
-				//SDL_RenderDrawLine(rend, x1, y1, x3, y3);
-				//SDL_RenderDrawLine(rend, x3, y3, x2, y2);
+				SDL_RenderDrawLine(rend, x1, y1, x2, y2);
+				SDL_RenderDrawLine(rend, x1, y1, x3, y3);
+				SDL_RenderDrawLine(rend, x3, y3, x2, y2);*/
 			}
 		}
 
