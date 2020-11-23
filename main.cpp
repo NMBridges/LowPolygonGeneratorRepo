@@ -9,18 +9,21 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		int qualityX = 12;
-		int qualityY = 12;
+		int qualityX = 44;
+		int qualityY = 23;
 		int winHei = 800;
 		int seed = 1;
+		int colorQuality = 1;
+		std::string imageTitle = "steph-curry";
+		std::string imageExtension = ".jpg";
 		SDL_Window *window = SDL_CreateWindow("LowPolyGenerator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winHei, winHei, SDL_WINDOW_SHOWN);
 		SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderClear(renderer);
 
-		PointCreator pcTEMP = PointCreator(1000, winHei, qualityX, qualityY, seed, renderer);
-		PointCreator pc = PointCreator((int)(winHei * pcTEMP.returnRatio()), winHei, qualityX, qualityY, seed, renderer);
+		PointCreator pcTEMP = PointCreator(1000, winHei, qualityX, qualityY, seed, colorQuality, imageTitle, imageExtension, renderer);
+		PointCreator pc = PointCreator((int)(winHei * pcTEMP.returnRatio()), winHei, qualityX, qualityY, seed, colorQuality, imageTitle, imageExtension, renderer);
 
 		SDL_SetWindowSize(window, (int)(winHei * pc.returnRatio()), winHei);
 		SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
@@ -33,6 +36,7 @@ int main(int argc, char *argv[])
 		pc.drawTriangles(renderer);
 		pc.delegateColors(renderer);
 		SDL_RenderPresent(renderer);
+		pc.saveImage(renderer, window);
 		SDL_Delay(150000);
 	}
 

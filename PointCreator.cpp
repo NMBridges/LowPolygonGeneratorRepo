@@ -6,6 +6,7 @@
 #include <thread>
 #include <vector>
 #include "kernel.h"
+#include <string>
 
 class PointCreator
 {
@@ -353,10 +354,13 @@ private:
 	SDL_Texture* imageTex;
 	SDL_Surface* imageSurf;
 	Vector4* colors;
+	int roundScale = 1;
+	std::string imageTitle;
+	std::string imageExtension;
 
 public:
 
-	PointCreator(int width, int height, int xdet, int ydet, int seedin, SDL_Renderer *rend)
+	PointCreator(int width, int height, int xdet, int ydet, int seedin, int roundS, std::string fileName, std::string fileType, SDL_Renderer* rend)
 	{
 		xdetail = xdet;
 		ydetail = ydet;
@@ -365,12 +369,17 @@ public:
 		y = new double[detailSquared];
 		length = factOverFact(detailSquared, detailSquared - 3) / factorial(3);
 		seed = seedin;
+		roundScale = roundS;
 		triangles = new Vector3Int[length];
 		workingIndex = new int[length];
 
 		// create texture
 
-		imageSurf = IMG_Load("assets/arnav.png");
+		imageTitle = fileName;
+		imageExtension = fileType;
+		std::string stringPath = "assets/" + imageTitle + imageExtension;
+
+		imageSurf = IMG_Load(stringPath.c_str());
 		if (!imageSurf)
 		{
 			std::cout << "Failed to make surface " << std::endl;
@@ -492,7 +501,7 @@ public:
 			for (int vert = 0; vert < windowHeight; vert++)
 			{
 				Vector3 cOLOR = pointColors[hori + vert * windowWidth];
-				SDL_SetRenderDrawColor(rend, (int)cOLOR.x, (int)cOLOR.y, (int)cOLOR.z, 255);
+				SDL_SetRenderDrawColor(rend, (((int)cOLOR.x)/roundScale) * roundScale, (((int)cOLOR.y) / roundScale) * roundScale, (((int)cOLOR.z) / roundScale) * roundScale, 255);
 				SDL_RenderDrawPoint(rend, hori, vert);
 				counter++;
 			}
@@ -583,6 +592,26 @@ public:
 
 		std::cout << "got here" << std::endl;
 
+
+	}
+
+	void saveImage(SDL_Renderer* rend, SDL_Window* wind)
+	{
+
+		SDL_Surface* pScreenShot = SDL_CreateRGBSurface(0, windowWidth, windowHeight, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+
+		if (pScreenShot)
+		{
+			// Read the pixels from the current render target and save them onto the surface
+			SDL_RenderReadPixels(rend, NULL, SDL_GetWindowPixelFormat(wind), pScreenShot->pixels, pScreenShot->pitch);
+
+			// Create the bmp screenshot file
+			std::string screenshotPath = "outputs/" + imageTitle + "-" + std::to_string(xdetail) + "-" + std::to_string(ydetail) + "-" + std::to_string(roundScale) + ".bmp";
+			SDL_SaveBMP(pScreenShot, screenshotPath.c_str());
+
+			// Destroy the screenshot surface
+			SDL_FreeSurface(pScreenShot);
+		}
 
 	}
 };
