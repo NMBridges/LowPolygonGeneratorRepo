@@ -18,11 +18,11 @@ private:
 		{
 			for (int q = 0; q < length; q++)
 			{
-				if (triangles[q].x != i && triangles[q].y != i && triangles[q].z != i)
+				if ((int)triangles[q].x != i && (int)triangles[q].y != i && (int)triangles[q].z != i)
 				{
-					int ind1 = triangles[q].x;
-					int ind2 = triangles[q].y;
-					int ind3 = triangles[q].z;
+					int ind1 = (int)triangles[q].x;
+					int ind2 = (int)triangles[q].y;
+					int ind3 = (int)triangles[q].z;
 
 					Vector2 vec1 = Vector2(x[ind1], y[ind1]);
 					Vector2 vec2 = Vector2(x[ind2], y[ind2]);
@@ -41,12 +41,12 @@ private:
 	{
 		for (int i = start; i < end; i++)
 		{
-			double p1x = x[triangles[i].x];
-			double p1y = y[triangles[i].x];
-			double p2x = x[triangles[i].y];
-			double p2y = y[triangles[i].y];
-			double p3x = x[triangles[i].z];
-			double p3y = y[triangles[i].z];
+			double p1x = x[(int)triangles[i].x];
+			double p1y = y[(int)triangles[i].x];
+			double p2x = x[(int)triangles[i].y];
+			double p2y = y[(int)triangles[i].y];
+			double p3x = x[(int)triangles[i].z];
+			double p3y = y[(int)triangles[i].z];
 
 			double s1 = sqrt((p2x - p3x) * (p2x - p3x) + (p2y - p3y) * (p2y - p3y));
 			double s2 = sqrt((p1x - p3x) * (p1x - p3x) + (p1y - p3y) * (p1y - p3y));
@@ -116,17 +116,17 @@ private:
 				if (bPoints > cPoints)
 				{
 					// 1 2 3
-					int one = triangles[i].x;
-					int two = triangles[i].y;
-					int three = triangles[i].z;
+					uint16_t one = triangles[i].x;
+					uint16_t two = triangles[i].y;
+					uint16_t three = triangles[i].z;
 					triangles[i] = Vector3Int(one, two, three);
 				}
 				else
 				{
 					// 1 3 2
-					int one = triangles[i].x;
-					int two = triangles[i].z;
-					int three = triangles[i].y;
+					uint16_t one = triangles[i].x;
+					uint16_t two = triangles[i].z;
+					uint16_t three = triangles[i].y;
 					triangles[i] = Vector3Int(one, two, three);
 				}
 			}
@@ -135,17 +135,17 @@ private:
 				if (aPoints > cPoints)
 				{
 					// 2 1 3
-					int one = triangles[i].y;
-					int two = triangles[i].x;
-					int three = triangles[i].z;
+					uint16_t one = triangles[i].y;
+					uint16_t two = triangles[i].x;
+					uint16_t three = triangles[i].z;
 					triangles[i] = Vector3Int(one, two, three);
 				}
 				else
 				{
 					// 2 3 1
-					int one = triangles[i].y;
-					int two = triangles[i].z;
-					int three = triangles[i].x;
+					uint16_t one = triangles[i].y;
+					uint16_t two = triangles[i].z;
+					uint16_t three = triangles[i].x;
 					triangles[i] = Vector3Int(one, two, three);
 				}
 			}
@@ -154,17 +154,17 @@ private:
 				if (aPoints > bPoints)
 				{
 					// 3 1 2
-					int one = triangles[i].z;
-					int two = triangles[i].x;
-					int three = triangles[i].y;
+					uint16_t one = triangles[i].z;
+					uint16_t two = triangles[i].x;
+					uint16_t three = triangles[i].y;
 					triangles[i] = Vector3Int(one, two, three);
 				}
 				else
 				{
 					// 3 2 1
-					int one = triangles[i].z;
-					int two = triangles[i].y;
-					int three = triangles[i].x;
+					uint16_t one = triangles[i].z;
+					uint16_t two = triangles[i].y;
+					uint16_t three = triangles[i].x;
 					triangles[i] = Vector3Int(one, two, three);
 				}
 			}
@@ -202,12 +202,12 @@ private:
 			{
 				for (int i = 0; i < usedLength; i++)
 				{
-					int x1 = (int)(x[usedTriangles[i].x] * windowWidth);
-					int y1 = (int)(y[usedTriangles[i].x] * windowHeight);
-					int x2 = (int)(x[usedTriangles[i].y] * windowWidth);
-					int y2 = (int)(y[usedTriangles[i].y] * windowHeight);
-					int x3 = (int)(x[usedTriangles[i].z] * windowWidth);
-					int y3 = (int)(y[usedTriangles[i].z] * windowHeight);
+					int x1 = (int)(x[(int)usedTriangles[i].x] * windowWidth);
+					int y1 = (int)(y[(int)usedTriangles[i].x] * windowHeight);
+					int x2 = (int)(x[(int)usedTriangles[i].y] * windowWidth);
+					int y2 = (int)(y[(int)usedTriangles[i].y] * windowHeight);
+					int x3 = (int)(x[(int)usedTriangles[i].z] * windowWidth);
+					int y3 = (int)(y[(int)usedTriangles[i].z] * windowHeight);
 
 					if (isInTriangle(Vector2(ex, ey), Vector2(x1, y1), Vector2(x2, y2), Vector2(x3, y3)))
 					{
@@ -231,12 +231,12 @@ private:
 			{
 				for (int i = 0; i < usedLength; i++)
 				{
-					int x1 = (int)(x[usedTriangles[i].x] * windowWidth);
-					int y1 = (int)(y[usedTriangles[i].x] * windowHeight);
-					int x2 = (int)(x[usedTriangles[i].y] * windowWidth);
-					int y2 = (int)(y[usedTriangles[i].y] * windowHeight);
-					int x3 = (int)(x[usedTriangles[i].z] * windowWidth);
-					int y3 = (int)(y[usedTriangles[i].z] * windowHeight);
+					int x1 = (int)(x[(int)usedTriangles[i].x] * windowWidth);
+					int y1 = (int)(y[(int)usedTriangles[i].x] * windowHeight);
+					int x2 = (int)(x[(int)usedTriangles[i].y] * windowWidth);
+					int y2 = (int)(y[(int)usedTriangles[i].y] * windowHeight);
+					int x3 = (int)(x[(int)usedTriangles[i].z] * windowWidth);
+					int y3 = (int)(y[(int)usedTriangles[i].z] * windowHeight);
 
 					if (isInTriangle(Vector2(ex, ey), Vector2(x1, y1), Vector2(x2, y2), Vector2(x3, y3)))
 					{
@@ -525,7 +525,7 @@ public:
 			{
 				for (int k = j + 1; k < pointLength; k++)
 				{
-					triangles[triCoun] = Vector3Int(i, j, k);
+					triangles[triCoun] = Vector3Int((uint16_t)i, (uint16_t)j, (uint16_t)k);
 					//std::cout << triCoun << ": " << triangles[triCoun].toString() << std::endl;
 					triCoun++;
 				}
@@ -565,12 +565,12 @@ public:
 			if (workingIndex[i] == 1)
 			{
 				usedLength++;
-				/*int x1 = (int)(x[triangles[i].x] * windowWidth);
-				int y1 = (int)(y[triangles[i].x] * windowHeight);
-				int x2 = (int)(x[triangles[i].y] * windowWidth);
-				int y2 = (int)(y[triangles[i].y] * windowHeight);
-				int x3 = (int)(x[triangles[i].z] * windowWidth);
-				int y3 = (int)(y[triangles[i].z] * windowHeight);
+				/*int x1 = (int)(x[(int)triangles[i].x] * windowWidth);
+				int y1 = (int)(y[(int)triangles[i].x] * windowHeight);
+				int x2 = (int)(x[(int)triangles[i].y] * windowWidth);
+				int y2 = (int)(y[(int)triangles[i].y] * windowHeight);
+				int x3 = (int)(x[(int)triangles[i].z] * windowWidth);
+				int y3 = (int)(y[(int)triangles[i].z] * windowHeight);
 				SDL_RenderDrawLine(rend, x1, y1, x2, y2);
 				SDL_RenderDrawLine(rend, x1, y1, x3, y3);
 				SDL_RenderDrawLine(rend, x3, y3, x2, y2);*/

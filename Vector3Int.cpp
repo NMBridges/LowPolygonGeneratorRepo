@@ -5,9 +5,9 @@
 class Vector3Int
 {
 public:
-	int x;
-	int y;
-	int z;
+	uint16_t x;
+	uint16_t y;
+	uint16_t z;
 
 	Vector3Int()
 	{
@@ -16,7 +16,7 @@ public:
 		z = 0;
 	}
 
-	Vector3Int(int inx, int iny, int inz)
+	Vector3Int(uint16_t inx, uint16_t iny, uint16_t inz)
 	{
 		x = inx;
 		y = iny;

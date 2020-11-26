@@ -1,18 +1,18 @@
 #include "kernel.h"
 
-__global__ void recalculateTriangles(double* x, double* y, int* g_tri1, int* g_tri2, int* g_tri3, int* theLength)
+__global__ void recalculateTriangles(double* x, double* y, uint16_t* g_tri1, uint16_t* g_tri2, uint16_t* g_tri3, int* theLength)
 {
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 	
 
 	if (i < theLength[0])
 	{
-		double p1x = x[g_tri1[i]];
-		double p1y = y[g_tri1[i]];
-		double p2x = x[g_tri2[i]];
-		double p2y = y[g_tri2[i]];
-		double p3x = x[g_tri3[i]];
-		double p3y = y[g_tri3[i]];
+		double p1x = x[(int)g_tri1[i]];
+		double p1y = y[(int)g_tri1[i]];
+		double p2x = x[(int)g_tri2[i]];
+		double p2y = y[(int)g_tri2[i]];
+		double p3x = x[(int)g_tri3[i]];
+		double p3y = y[(int)g_tri3[i]];
 
 		double s1 = sqrt((p2x - p3x) * (p2x - p3x) + (p2y - p3y) * (p2y - p3y));
 		double s2 = sqrt((p1x - p3x) * (p1x - p3x) + (p1y - p3y) * (p1y - p3y));
@@ -111,9 +111,9 @@ __global__ void recalculateTriangles(double* x, double* y, int* g_tri1, int* g_t
 			if (bPoints > cPoints)
 			{
 				// 1 2 3
-				int one = g_tri1[i];
-				int two = g_tri2[i];
-				int three = g_tri3[i];
+				uint16_t one = g_tri1[i];
+				uint16_t two = g_tri2[i];
+				uint16_t three = g_tri3[i];
 				g_tri1[i] = one;
 				g_tri2[i] = two;
 				g_tri3[i] = three;
@@ -121,9 +121,9 @@ __global__ void recalculateTriangles(double* x, double* y, int* g_tri1, int* g_t
 			else
 			{
 				// 1 3 2
-				int one = g_tri1[i];
-				int two = g_tri3[i];
-				int three = g_tri2[i];
+				uint16_t one = g_tri1[i];
+				uint16_t two = g_tri3[i];
+				uint16_t three = g_tri2[i];
 				g_tri1[i] = one;
 				g_tri2[i] = two;
 				g_tri3[i] = three;
@@ -134,9 +134,9 @@ __global__ void recalculateTriangles(double* x, double* y, int* g_tri1, int* g_t
 			if (aPoints > cPoints)
 			{
 				// 2 1 3
-				int one = g_tri2[i];
-				int two = g_tri1[i];
-				int three = g_tri3[i];
+				uint16_t one = g_tri2[i];
+				uint16_t two = g_tri1[i];
+				uint16_t three = g_tri3[i];
 				g_tri1[i] = one;
 				g_tri2[i] = two;
 				g_tri3[i] = three;
@@ -144,9 +144,9 @@ __global__ void recalculateTriangles(double* x, double* y, int* g_tri1, int* g_t
 			else
 			{
 				// 2 3 1
-				int one = g_tri2[i];
-				int two = g_tri3[i];
-				int three = g_tri1[i];
+				uint16_t one = g_tri2[i];
+				uint16_t two = g_tri3[i];
+				uint16_t three = g_tri1[i];
 				g_tri1[i] = one;
 				g_tri2[i] = two;
 				g_tri3[i] = three;
@@ -157,9 +157,9 @@ __global__ void recalculateTriangles(double* x, double* y, int* g_tri1, int* g_t
 			if (aPoints > bPoints)
 			{
 				// 3 1 2
-				int one = g_tri3[i];
-				int two = g_tri1[i];
-				int three = g_tri2[i];
+				uint16_t one = g_tri3[i];
+				uint16_t two = g_tri1[i];
+				uint16_t three = g_tri2[i];
 				g_tri1[i] = one;
 				g_tri2[i] = two;
 				g_tri3[i] = three;
@@ -167,9 +167,9 @@ __global__ void recalculateTriangles(double* x, double* y, int* g_tri1, int* g_t
 			else
 			{
 				// 3 2 1
-				int one = g_tri3[i];
-				int two = g_tri2[i];
-				int three = g_tri1[i];
+				uint16_t one = g_tri3[i];
+				uint16_t two = g_tri2[i];
+				uint16_t three = g_tri1[i];
 				g_tri1[i] = one;
 				g_tri2[i] = two;
 				g_tri3[i] = three;
@@ -178,17 +178,17 @@ __global__ void recalculateTriangles(double* x, double* y, int* g_tri1, int* g_t
 	}
 }
 
-__global__ void deactivateTris(double* x, double* y, int* g_tri1, int* g_tri2, int* g_tri3, int* g_workingIndex, int* g_length)
+__global__ void deactivateTris(double* x, double* y, uint16_t* g_tri1, uint16_t* g_tri2, uint16_t* g_tri3, int* g_workingIndex, int* g_length)
 {
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 
 	for (int q = 0; q < g_length[1]; q++)
 	{
-		if (g_tri1[q] != i && g_tri2[q] != i && g_tri3[q] != i)
+		if ((int)g_tri1[q] != i && (int)g_tri2[q] != i && (int)g_tri3[q] != i)
 		{
-			int ind1 = g_tri1[q];
-			int ind2 = g_tri2[q];
-			int ind3 = g_tri3[q];
+			int ind1 = (int)g_tri1[q];
+			int ind2 = (int)g_tri2[q];
+			int ind3 = (int)g_tri3[q];
 
 			double ax = x[ind1] - x[i];
 			double ay = y[ind1] - y[i];
@@ -218,12 +218,12 @@ void Kernel::deactivate(double* x, double* y, int detailx, int detaily, Vector3I
 	int* lengthArray = new int[2]{ pointLength, length };
 	int* g_workingIndex;
 	int* g_length = lengthArray;
-	int* tri1 = new int[length];
-	int* tri2 = new int[length];
-	int* tri3 = new int[length];
-	int* g_tri1;
-	int* g_tri2;
-	int* g_tri3;
+	uint16_t* tri1 = new uint16_t[length];
+	uint16_t* tri2 = new uint16_t[length];
+	uint16_t* tri3 = new uint16_t[length];
+	uint16_t* g_tri1;
+	uint16_t* g_tri2;
+	uint16_t* g_tri3;
 	for (int q = 0; q < length; q++)
 	{
 		tri1[q] = triangles[q].x;
@@ -244,7 +244,7 @@ void Kernel::deactivate(double* x, double* y, int detailx, int detaily, Vector3I
 		return;
 	}
 
-	if (cudaMalloc(&g_tri1, sizeof(int) * length) != cudaSuccess)
+	if (cudaMalloc(&g_tri1, sizeof(uint16_t) * length) != cudaSuccess)
 	{
 		std::cout << "Failed to load triangle list 1 to variable" << std::endl;
 		cudaFree(g_x);
@@ -252,7 +252,7 @@ void Kernel::deactivate(double* x, double* y, int detailx, int detaily, Vector3I
 		return;
 	}
 
-	if (cudaMalloc(&g_tri2, sizeof(int) * length) != cudaSuccess)
+	if (cudaMalloc(&g_tri2, sizeof(uint16_t) * length) != cudaSuccess)
 	{
 		std::cout << "Failed to load triangle list 2 to variable" << std::endl;
 		cudaFree(g_x);
@@ -261,7 +261,7 @@ void Kernel::deactivate(double* x, double* y, int detailx, int detaily, Vector3I
 		return;
 	}
 
-	if (cudaMalloc(&g_tri3, sizeof(int) * length) != cudaSuccess)
+	if (cudaMalloc(&g_tri3, sizeof(uint16_t) * length) != cudaSuccess)
 	{
 		std::cout << "Failed to load triangle list 3 to variable" << std::endl;
 		cudaFree(g_x);
@@ -320,7 +320,7 @@ void Kernel::deactivate(double* x, double* y, int detailx, int detaily, Vector3I
 		return;
 	}
 
-	if (cudaMemcpy(g_tri1, tri1, sizeof(int) * length, cudaMemcpyHostToDevice) != cudaSuccess)
+	if (cudaMemcpy(g_tri1, tri1, sizeof(uint16_t) * length, cudaMemcpyHostToDevice) != cudaSuccess)
 	{
 		std::cout << "Failed to copy triangle list to GPU" << std::endl;
 		cudaFree(g_x);
@@ -333,7 +333,7 @@ void Kernel::deactivate(double* x, double* y, int detailx, int detaily, Vector3I
 		return;
 	}
 
-	if (cudaMemcpy(g_tri2, tri2, sizeof(int) * length, cudaMemcpyHostToDevice) != cudaSuccess)
+	if (cudaMemcpy(g_tri2, tri2, sizeof(uint16_t) * length, cudaMemcpyHostToDevice) != cudaSuccess)
 	{
 		std::cout << "Failed to copy triangle list to GPU" << std::endl;
 		cudaFree(g_x);
@@ -346,7 +346,7 @@ void Kernel::deactivate(double* x, double* y, int detailx, int detaily, Vector3I
 		return;
 	}
 
-	if (cudaMemcpy(g_tri3, tri3, sizeof(int) * length, cudaMemcpyHostToDevice) != cudaSuccess)
+	if (cudaMemcpy(g_tri3, tri3, sizeof(uint16_t) * length, cudaMemcpyHostToDevice) != cudaSuccess)
 	{
 		std::cout << "Failed to copy triangle list to GPU" << std::endl;
 		cudaFree(g_x);
@@ -446,12 +446,12 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 	double *g_x, *g_y;
 	int* lengthArray = new int[1]{ length };
 	int* g_length = lengthArray;
-	int* tri1 = new int[length];
-	int* tri2 = new int[length];
-	int* tri3 = new int[length];
-	int* g_tri1;
-	int* g_tri2;
-	int* g_tri3;
+	uint16_t* tri1 = new uint16_t[length];
+	uint16_t* tri2 = new uint16_t[length];
+	uint16_t* tri3 = new uint16_t[length];
+	uint16_t* g_tri1;
+	uint16_t* g_tri2;
+	uint16_t* g_tri3;
 	for (int q = 0; q < length; q++)
 	{
 		tri1[q] = triangles[q].x;
@@ -472,7 +472,7 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 		return;
 	}
 
-	if (cudaMalloc(&g_tri1, sizeof(int) * length) != cudaSuccess)
+	if (cudaMalloc(&g_tri1, sizeof(uint16_t) * length) != cudaSuccess)
 	{
 		std::cout << "Failed to load triangle list 1 to variable" << std::endl;
 		cudaFree(g_x);
@@ -480,7 +480,7 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 		return;
 	}
 
-	if (cudaMalloc(&g_tri2, sizeof(int) * length) != cudaSuccess)
+	if (cudaMalloc(&g_tri2, sizeof(uint16_t) * length) != cudaSuccess)
 	{
 		std::cout << "Failed to load triangle list 2 to variable" << std::endl;
 		cudaFree(g_x);
@@ -489,7 +489,7 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 		return;
 	}
 
-	if (cudaMalloc(&g_tri3, sizeof(int) * length) != cudaSuccess)
+	if (cudaMalloc(&g_tri3, sizeof(uint16_t) * length) != cudaSuccess)
 	{
 		std::cout << "Failed to load triangle list 3 to variable" << std::endl;
 		cudaFree(g_x);
@@ -534,7 +534,7 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 		return;
 	}
 
-	if (cudaMemcpy(g_tri1, tri1, sizeof(int) * length, cudaMemcpyHostToDevice) != cudaSuccess)
+	if (cudaMemcpy(g_tri1, tri1, sizeof(uint16_t) * length, cudaMemcpyHostToDevice) != cudaSuccess)
 	{
 		std::cout << "Failed to copy triangle list to GPU" << std::endl;
 		cudaFree(g_x);
@@ -546,7 +546,7 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 		return;
 	}
 
-	if (cudaMemcpy(g_tri2, tri2, sizeof(int) * length, cudaMemcpyHostToDevice) != cudaSuccess)
+	if (cudaMemcpy(g_tri2, tri2, sizeof(uint16_t) * length, cudaMemcpyHostToDevice) != cudaSuccess)
 	{
 		std::cout << "Failed to copy triangle list to GPU" << std::endl;
 		cudaFree(g_x);
@@ -558,7 +558,7 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 		return;
 	}
 
-	if (cudaMemcpy(g_tri3, tri3, sizeof(int) * length, cudaMemcpyHostToDevice) != cudaSuccess)
+	if (cudaMemcpy(g_tri3, tri3, sizeof(uint16_t) * length, cudaMemcpyHostToDevice) != cudaSuccess)
 	{
 		std::cout << "Failed to copy triangle list to GPU" << std::endl;
 		cudaFree(g_x);
@@ -616,7 +616,7 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 
 	cudaDeviceSynchronize();
 
-	if (cudaMemcpy(tri1, g_tri1, sizeof(int) * length, cudaMemcpyDeviceToHost) != cudaSuccess)
+	if (cudaMemcpy(tri1, g_tri1, sizeof(uint16_t) * length, cudaMemcpyDeviceToHost) != cudaSuccess)
 	{
 		std::cout << "Failed to copy back triangle list 1" << std::endl;
 		cudaFree(g_x);
@@ -628,7 +628,7 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 		return;
 	}
 
-	if (cudaMemcpy(tri2, g_tri2, sizeof(int) * length, cudaMemcpyDeviceToHost) != cudaSuccess)
+	if (cudaMemcpy(tri2, g_tri2, sizeof(uint16_t) * length, cudaMemcpyDeviceToHost) != cudaSuccess)
 	{
 		std::cout << "Failed to copy back triangle list 2" << std::endl;
 		cudaFree(g_x);
@@ -640,7 +640,7 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 		return;
 	}
 
-	if (cudaMemcpy(tri3, g_tri3, sizeof(int) * length, cudaMemcpyDeviceToHost) != cudaSuccess)
+	if (cudaMemcpy(tri3, g_tri3, sizeof(uint16_t) * length, cudaMemcpyDeviceToHost) != cudaSuccess)
 	{
 		std::cout << "Failed to copy back triangle list 3" << std::endl;
 		cudaFree(g_x);
