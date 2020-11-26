@@ -525,9 +525,14 @@ public:
 			{
 				for (int k = j + 1; k < pointLength; k++)
 				{
+					//Vector3Int thisTri = Vector3Int((uint16_t)i, (uint16_t)j, (uint16_t)k);
+					
 					triangles[triCoun] = Vector3Int((uint16_t)i, (uint16_t)j, (uint16_t)k);
 					//std::cout << triCoun << ": " << triangles[triCoun].toString() << std::endl;
 					triCoun++;
+
+					// MAKE IT ALL IN ONE HERE AND ONLY SAVE TRIANGLE IF IT IS GOOD SO IT SAVES MEMORY
+
 				}
 			}
 		}
