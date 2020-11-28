@@ -501,7 +501,121 @@ public:
 			for (int vert = 0; vert < windowHeight; vert++)
 			{
 				Vector3 cOLOR = pointColors[hori + vert * windowWidth];
-				SDL_SetRenderDrawColor(rend, (((int)cOLOR.x)/roundScale) * roundScale, (((int)cOLOR.y) / roundScale) * roundScale, (((int)cOLOR.z) / roundScale) * roundScale, 255);
+
+				double rCol = (((int)cOLOR.x) / roundScale) * roundScale / 255.0;
+				double gCol = (((int)cOLOR.y) / roundScale) * roundScale / 255.0;
+				double bCol = (((int)cOLOR.z) / roundScale) * roundScale / 255.0;
+
+				// RGB to HSV
+
+				double cMax = 0.0;
+				double cMin = 0.0;
+				double cDiff = 0.0;
+				double hCol = 0.0;
+				double sCol = 0.0;
+				double vCol = 0.0;
+
+				if (rCol >= gCol && rCol >= bCol)
+				{
+					cMax = rCol;
+				}
+				else if(gCol >= rCol && gCol >= bCol)
+				{
+					cMax = gCol;
+				}
+				else if (bCol >= gCol && bCol >= rCol)
+				{
+					cMax = bCol;
+				}
+
+				if (rCol <= gCol && rCol <= bCol)
+				{
+					cMin = rCol;
+				}
+				else if (gCol <= rCol && gCol <= bCol)
+				{
+					cMin = gCol;
+				}
+				else if (bCol <= gCol && bCol <= rCol)
+				{
+					cMin = bCol;
+				}
+
+				cDiff = cMax - cMin;
+
+				if (cMax == 0.0 && cMin == 0.0)
+				{
+					hCol = 0.0;
+				}
+				else if(cMax == rCol)
+				{
+					hCol = (double)((int)(60.0 * ((gCol - bCol) / cDiff) + 360.0) % 360);
+				}
+				else if (cMax == gCol)
+				{
+					hCol = (double)((int)(60.0 * ((bCol - rCol) / cDiff) + 120.0) % 360);
+				}
+				else if (cMax == bCol)
+				{
+					hCol = (double)((int)(60.0 * ((rCol - gCol) / cDiff) + 240.0) % 360);
+				}
+
+				if (cMax == 0.0)
+				{
+					sCol = 0.0;
+				}
+				else
+				{
+					sCol = ((cDiff / cMax) * 100.0);
+				}
+
+				vCol = cMax * 100.0;
+				sCol = 10.0 * sqrt(sCol);
+
+				// HSV to RGB
+
+				double cCol = vCol / 100.0 * sCol / 100.0;
+				double xCol = cCol * (1.0 - abs((double)(std::fmod((hCol / 60.0), 2)) - 1.0));
+				double mCol = vCol / 100.0 - cCol;
+				int region = (int)(hCol / 60);
+				double firstCol = 0.0;
+				double secondCol = 0.0;
+				double thirdCol = 0.0;
+				switch (region)
+				{
+				case 0:
+					firstCol = cCol;
+					secondCol = xCol;
+					thirdCol = 0.0;
+				case 1:
+					firstCol = xCol;
+					secondCol = cCol;
+					thirdCol = 0.0;
+				case 2:
+					firstCol = 0.0;
+					secondCol = cCol;
+					thirdCol = xCol;
+				case 3:
+					firstCol = 0.0;
+					secondCol = xCol;
+					thirdCol = cCol;
+				case 4:
+					firstCol = xCol;
+					secondCol = 0.0;
+					thirdCol = cCol;
+				case 5:
+					firstCol = cCol;
+					secondCol = 0.0;
+					thirdCol = xCol;
+				}
+
+				rCol = ((firstCol + mCol) * 255.0);
+				gCol = ((thirdCol + mCol) * 255.0);
+				bCol = ((secondCol + mCol) * 255.0);
+
+				//std::cout << "RGB:  (" << (((int)cOLOR.x) / roundScale) * roundScale << ", " << (((int)cOLOR.y) / roundScale) * roundScale << ", " << (((int)cOLOR.z) / roundScale) * roundScale << ")    HSV:  (" << hCol << ", " << sCol << ", " << vCol << ")   Converted RGB:  (" << rCol << ", " << gCol << ", " << bCol << ")" << std::endl;
+
+				SDL_SetRenderDrawColor(rend, (Uint8)rCol, (Uint8)gCol, (Uint8)bCol, 255);
 				SDL_RenderDrawPoint(rend, hori, vert);
 				counter++;
 			}
