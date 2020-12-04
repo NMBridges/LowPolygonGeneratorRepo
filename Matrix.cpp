@@ -1,3 +1,6 @@
+// Created by Nolan Bridges on 11/15/20.
+// Copyright © 2020 NiMBLe Interactive. All rights reserved.
+
 #include <iostream>
 #include "Vector3.cpp"
 #include "Vector2.cpp"

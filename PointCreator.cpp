@@ -1,3 +1,6 @@
+// Created by Nolan Bridges on 11/15/20.
+// Copyright © 2020 NiMBLe Interactive. All rights reserved.
+
 #include <iostream>
 #include "Matrix.cpp"
 #include <SDL.h>
@@ -502,9 +505,11 @@ public:
 			{
 				Vector3 cOLOR = pointColors[hori + vert * windowWidth];
 
-				double rCol = (((int)cOLOR.x) / roundScale) * roundScale / 255.0;
-				double gCol = (((int)cOLOR.y) / roundScale) * roundScale / 255.0;
-				double bCol = (((int)cOLOR.z) / roundScale) * roundScale / 255.0;
+				double rCol = (((int)cOLOR.x) / roundScale) * roundScale;// / 255.0;
+				double gCol = (((int)cOLOR.y) / roundScale) * roundScale;// / 255.0;
+				double bCol = (((int)cOLOR.z) / roundScale) * roundScale;// / 255.0;
+
+				/*
 
 				// RGB to HSV
 
@@ -570,7 +575,7 @@ public:
 				}
 
 				vCol = cMax * 100.0;
-				sCol = 10.0 * sqrt(sCol);
+				//sCol = 10.0 * sqrt(sCol);
 
 				// HSV to RGB
 
@@ -612,6 +617,8 @@ public:
 				rCol = ((firstCol + mCol) * 255.0);
 				gCol = ((thirdCol + mCol) * 255.0);
 				bCol = ((secondCol + mCol) * 255.0);
+
+				*/
 
 				//std::cout << "RGB:  (" << (((int)cOLOR.x) / roundScale) * roundScale << ", " << (((int)cOLOR.y) / roundScale) * roundScale << ", " << (((int)cOLOR.z) / roundScale) * roundScale << ")    HSV:  (" << hCol << ", " << sCol << ", " << vCol << ")   Converted RGB:  (" << rCol << ", " << gCol << ", " << bCol << ")" << std::endl;
 

@@ -1,3 +1,6 @@
+// Created by Nolan Bridges on 11/15/20.
+// Copyright © 2020 NiMBLe Interactive. All rights reserved.
+
 #include <iostream>
 #include <math.h>
 #include <string>

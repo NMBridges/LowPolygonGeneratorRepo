@@ -1,3 +1,6 @@
+// Created by Nolan Bridges on 11/15/20.
+// Copyright © 2020 NiMBLe Interactive. All rights reserved.
+
 #include "kernel.h"
 
 __global__ void recalculateTriangles(double* x, double* y, uint16_t* g_tri1, uint16_t* g_tri2, uint16_t* g_tri3, int* theLength)

@@ -1,3 +1,6 @@
+// Created by Nolan Bridges on 11/15/20.
+// Copyright © 2020 NiMBLe Interactive. All rights reserved.
+
 #include <iostream>
 #include "PointCreator.cpp"
 
@@ -9,13 +12,13 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		int qualityX = 30;
-		int qualityY = 30;
+		int qualityX = 25;
+		int qualityY = 25;
 		int winHei = 800;
 		int seed = 1;
 		int colorQuality = 1;
-		std::string imageTitle = "jfk";
-		std::string imageExtension = ".jpg";
+		std::string imageTitle = "Screenshot 2020-12-02 134842";
+		std::string imageExtension = ".png";
 		SDL_Window *window = SDL_CreateWindow("LowPolyGenerator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winHei, winHei, SDL_WINDOW_SHOWN);
 		SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
