@@ -12,12 +12,12 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		int qualityX = 32;
-		int qualityY = 32;
+		int qualityX = 38;
+		int qualityY = 30;
 		int winHei = 800;
 		int seed = 5.1;
 		int colorQuality = 1;
-		std::string imageTitle = "jfk";
+		std::string imageTitle = "camera3";
 		std::string imageExtension = ".jpg";
 		SDL_Window *window = SDL_CreateWindow("LowPolyGenerator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winHei, winHei, SDL_WINDOW_SHOWN);
 		SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
