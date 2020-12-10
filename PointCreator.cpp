@@ -10,6 +10,7 @@
 #include <vector>
 #include "kernel.h"
 #include <string>
+#include <cmath>
 
 class PointCreator
 {
@@ -433,8 +434,12 @@ public:
 			for (int q = 0; q < xdetailLevel; q++)
 			{
 				int item = (int)(i * xdetailLevel + q);
-				double perc1 = (q == 0 || q == xdetailLevel - 1) ? 0 : ((double)std::rand() / RAND_MAX - 0.5) * amount * 0.5 / ((double)xdetailLevel - 1.0);
-				double perc2 = (i == 0 || i == ydetailLevel - 1) ? 0 : ((double)std::rand() / RAND_MAX - 0.5) * amount * 0.5 / ((double)ydetailLevel - 1.0);
+				double amount1 = ((double)std::rand() / RAND_MAX - 0.5) * amount * 0.5;
+				double amount2 = ((double)std::rand() / RAND_MAX - 0.5) * amount * 0;
+				std::cout << amount1 << "   :   " << amount2 << std::endl;
+				double perc1 = (q == 0 || q == xdetailLevel - 1) ? 0 : amount1 / ((double)xdetailLevel - 1.0);
+				double perc2 = (i == 0 || i == ydetailLevel - 1) ? 0 : amount2 / ((double)ydetailLevel - 1.0);
+				std::cout << perc1 * 800 * windowWidth / windowHeight << "   ;   " << perc2 * 800 << std::endl;
 				x[item] = x[item] + perc1;
 				y[item] = y[item] + perc2;
 				if (x[item] < 0.0)
@@ -716,7 +721,7 @@ public:
 				}
 			}
 		}
-
+		std::cout << triCoun << std::endl;
 		length = triCoun;
 		triangles = new Vector3Int[length];
 		for (int i = 0; i < length; i++)
@@ -746,25 +751,21 @@ public:
 
 	bool comparePoints(int a, int b)
 	{
-		if (abs(a - b) <= 2)
+		int distance = std::min(std::abs(xdetail - ydetail) + 3, std::max(xdetail, ydetail) / 3);
+		for (int s = -1; s < distance; s++)
 		{
-			return true;
+			if (std::abs(a + (s + 1) * xdetail - b) <= distance)
+			{
+				return true;
+			}
+			if (std::abs(a - (s + 1) * xdetail - b) <= distance)
+			{
+				return true;
+			}
 		}
-		else if(abs(a + xdetail - b) <= 2)
+		if (std::abs(a - b) <= 25 && (a == 1 || b == 1))
 		{
-			return true;
-		}
-		else if (abs(a - xdetail - b) <= 2)
-		{
-			return true;
-		}
-		else if (abs(a + 2 * xdetail - b) <= 2)
-		{
-			return true;
-		}
-		else if (abs(a - 2 * xdetail - b) <= 2)
-		{
-			return true;
+			std::cout << "REMOVED: " << a << " + " << b << std::endl;
 		}
 		return false;
 	}

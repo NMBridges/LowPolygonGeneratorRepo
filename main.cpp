@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		int qualityX = 5;
-		int qualityY = 25;
+		int qualityX = 6;
+		int qualityY = 26;
 		int winHei = 800;
 		int seed = 5.1;
 		int colorQuality = 1;
