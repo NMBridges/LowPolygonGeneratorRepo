@@ -399,8 +399,8 @@ public:
 		colors = new Vector4[imageSurf->w * imageSurf->h];
 		colors[0] = Vector4(0.0, 0.0, 0.0, 0.0);
 
-		windowHeight = imageSurf->w;//height;
-		windowWidth = imageSurf->h;//int)(height * returnRatio());
+		windowHeight = imageSurf->h;//height;
+		windowWidth = imageSurf->w;//int)(height * returnRatio());
 	}
 
 	void createPoints(int xdetailLevel, int ydetailLevel)
@@ -514,18 +514,20 @@ public:
 
 		SDL_QueryTexture(outputImageTex, &formatD, NULL, &w, &h);
 
+		pixelsD = (Uint32*)malloc(w * h * SDL_BYTESPERPIXEL(formatC));
 		if (SDL_LockTexture(outputImageTex, NULL, (void**)&pixelsD, &pitchD) != 0)
 		{
 			std::cout << SDL_GetError() << std::endl;
 		}
 
 		SDL_PixelFormat pixelFormatD;
-		pixelFormatD.format = formatD;
+		pixelFormatD.format = formatC;
 
 		int counter = 0;
-		for (int hori = 0; hori < windowWidth; hori++)
+
+		for (int vert = 0; vert < windowHeight; vert++)
 		{
-			for (int vert = 0; vert < windowHeight; vert++)
+			for (int hori = 0; hori < windowWidth; hori++)
 			{
 				Vector3 cOLOR = pointColors[hori + vert * windowWidth];
 
@@ -644,10 +646,16 @@ public:
 
 				*/
 
-				//std::cout << "RGB:  (" << (((int)cOLOR.x) / roundScale) * roundScale << ", " << (((int)cOLOR.y) / roundScale) * roundScale << ", " << (((int)cOLOR.z) / roundScale) * roundScale << ")    HSV:  (" << hCol << ", " << sCol << ", " << vCol << ")   Converted RGB:  (" << rCol << ", " << gCol << ", " << bCol << ")" << std::endl;
+				//std::cout << "RGB:  (" << rCol << ", " << gCol << ", " << bCol << ")" << std::endl;
 
-				Uint32 pixelPosition = vert * (pitchD / sizeof(unsigned int)) + hori;
-				pixelsD[pixelPosition] = SDL_MapRGB(imageSurf->format, bCol, gCol, rCol);
+				Uint32 pixelPosition = vert * windowWidth + hori;
+				//std::cout << &pixelFormatD << " + " << counter << " out of " << "" << std::endl;
+				Uint32 tHAT = SDL_MapRGB(imageSurf->format, bCol, gCol, rCol);
+				if (pixelPosition % 100 == 0)
+				{
+					//std::cout << pixelPosition << std::endl;
+				}
+				pixelsD[pixelPosition] = tHAT;
 				
 				//SDL_SetRenderDrawColor(rend, (Uint8)rCol, (Uint8)gCol, (Uint8)bCol, 255);
 				//SDL_RenderDrawPoint(rend, hori, vert);
@@ -668,13 +676,14 @@ public:
 			int y2 = (int)(y[(int)usedTriangles[i].y] * windowHeight);
 			int x3 = (int)(x[(int)usedTriangles[i].z] * windowWidth);
 			int y3 = (int)(y[(int)usedTriangles[i].z] * windowHeight);
-			SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
+			//SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
 			//SDL_RenderDrawLine(rend, x1, y1, x2, y2);
 			//SDL_RenderDrawLine(rend, x1, y1, x3, y3);
 			//SDL_RenderDrawLine(rend, x3, y3, x2, y2);
 		}
 
 		std::cout << "Finished delegating colors" << std::endl;
+		
 	}
 
 	void createTriangles(SDL_Renderer *rend)
