@@ -12,13 +12,13 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		int qualityX = 28;
-		int qualityY = 36;
+		int qualityX = 32;
+		int qualityY = 32;
 		int winHei = 800;
-		int seed = 1;
+		int seed = 5.1;
 		int colorQuality = 1;
-		std::string imageTitle = "Screenshot 2020-12-04 231124";
-		std::string imageExtension = ".png";
+		std::string imageTitle = "jfk";
+		std::string imageExtension = ".jpg";
 		SDL_Window *window = SDL_CreateWindow("LowPolyGenerator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winHei, winHei, SDL_WINDOW_SHOWN);
 		SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderPresent(renderer);
 		
+		int first = SDL_GetTicks();
 		pc.createPoints(qualityX, qualityY);
 		pc.jitterPoints(qualityX, qualityY, 1.5);
 		pc.createTriangles(renderer);
@@ -40,6 +41,7 @@ int main(int argc, char *argv[])
 		pc.delegateColors(renderer);
 		SDL_RenderPresent(renderer);
 		pc.saveImage(renderer, window);
+		std::cout << "Final time: " << (((double)(SDL_GetTicks() - first) / 1000.0)) << std::endl;
 		SDL_Delay(150000);
 	}
 

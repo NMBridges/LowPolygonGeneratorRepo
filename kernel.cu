@@ -441,7 +441,7 @@ void Kernel::deactivate(double* x, double* y, int detailx, int detaily, Vector3I
 	cudaFree(g_tri3);
 	cudaFree(g_length);
 
-	std::cout << "triangle deactivating done" << std::endl;
+	std::cout << "Finished deactivating triangles" << std::endl;
 }
 
 void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLength, int length)
@@ -669,5 +669,5 @@ void Kernel::recalccc(double* x, double* y, Vector3Int* triangles, int pointLeng
 	cudaFree(g_tri3);
 	cudaFree(g_length);
 
-	std::cout << "triangle reordering done" << std::endl;
+	std::cout << "Finished reordering triangles" << std::endl;
 }

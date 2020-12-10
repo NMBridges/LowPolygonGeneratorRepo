@@ -222,7 +222,7 @@ private:
 					}
 				}
 			}
-			std::cout << "2nd: " << ey << std::endl;
+			//std::cout << "2nd: " << ey << std::endl;
 		}
 	}
 	
@@ -268,7 +268,7 @@ private:
 				}
 			}
 
-			std::cout << ey << std::endl;
+			//std::cout << ey << std::endl;
 		}
 	}
 
@@ -649,7 +649,9 @@ public:
 	{
 		int pointLength = detailSquared;
 
-		std::cout << "LENGTH OF X AND Y: " << pointLength << std::endl;
+		std::cout << "Number of points: " << pointLength << std::endl;
+
+		Vector3Int* tempTriang = new Vector3Int[length];
 
 		// creates triangles for every combination of three points. Eventually accelerate with the GPU
 
@@ -661,16 +663,27 @@ public:
 				for (int k = j + 1; k < pointLength; k++)
 				{
 					//Vector3Int thisTri = Vector3Int((uint16_t)i, (uint16_t)j, (uint16_t)k);
-					
-					triangles[triCoun] = Vector3Int((uint16_t)i, (uint16_t)j, (uint16_t)k);
+					if (comparePoints(i, j) && comparePoints(j, k) && comparePoints(i, k))
+					{
+						tempTriang[triCoun] = Vector3Int((uint16_t)i, (uint16_t)j, (uint16_t)k);
+						triCoun++;
+					}
 					//std::cout << triCoun << ": " << triangles[triCoun].toString() << std::endl;
-					triCoun++;
 
 					// MAKE IT ALL IN ONE HERE AND ONLY SAVE TRIANGLE IF IT IS GOOD SO IT SAVES MEMORY
 
 				}
 			}
 		}
+
+		length = triCoun;
+		triangles = new Vector3Int[length];
+		for (int i = 0; i < length; i++)
+		{
+			triangles[i] = tempTriang[i];
+		}
+
+		delete(tempTriang);
 		
 		// orders the points in each triangle set in counterclockwise order
 		
@@ -690,13 +703,38 @@ public:
 		kernelCaller.deactivate(x, y, xdetail, ydetail, triangles, std::ref(workingIndex), pointLength, length);
 	}
 
+	bool comparePoints(int a, int b)
+	{
+		if (abs(a - b) <= 2)
+		{
+			return true;
+		}
+		else if(abs(a + xdetail - b) <= 2)
+		{
+			return true;
+		}
+		else if (abs(a - xdetail - b) <= 2)
+		{
+			return true;
+		}
+		else if (abs(a + 2 * xdetail - b) <= 2)
+		{
+			return true;
+		}
+		else if (abs(a - 2 * xdetail - b) <= 2)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	void drawTriangles(SDL_Renderer *rend)
 	{
 		SDL_RenderCopy(rend, imageTex, NULL, NULL);
 		SDL_RenderPresent(rend);
 		//SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
 		
-		std::cout << length << std::endl;
+		//std::cout << length << std::endl;
 
 		usedLength = 0;
 
@@ -730,7 +768,7 @@ public:
 
 		delete[] triangles;
 
-		std::cout << "got here" << std::endl;
+		//std::cout << "got here" << std::endl;
 
 
 	}
