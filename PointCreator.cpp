@@ -637,9 +637,9 @@ public:
 			int x3 = (int)(x[(int)usedTriangles[i].z] * windowWidth);
 			int y3 = (int)(y[(int)usedTriangles[i].z] * windowHeight);
 			SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
-			SDL_RenderDrawLine(rend, x1, y1, x2, y2);
-			SDL_RenderDrawLine(rend, x1, y1, x3, y3);
-			SDL_RenderDrawLine(rend, x3, y3, x2, y2);
+			//SDL_RenderDrawLine(rend, x1, y1, x2, y2);
+			//SDL_RenderDrawLine(rend, x1, y1, x3, y3);
+			//SDL_RenderDrawLine(rend, x3, y3, x2, y2);
 		}
 
 		std::cout << "Finished delegating colors" << std::endl;

@@ -12,13 +12,13 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		int qualityX = 30;
-		int qualityY = 15;
+		int qualityX = 28;
+		int qualityY = 36;
 		int winHei = 800;
 		int seed = 1;
 		int colorQuality = 1;
-		std::string imageTitle = "eyeball";
-		std::string imageExtension = ".jpg";
+		std::string imageTitle = "Screenshot 2020-12-04 231124";
+		std::string imageExtension = ".png";
 		SDL_Window *window = SDL_CreateWindow("LowPolyGenerator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winHei, winHei, SDL_WINDOW_SHOWN);
 		SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
