@@ -25,8 +25,8 @@ int main(int argc, char *argv[])
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderClear(renderer);
 
-		PointCreator pcTEMP = PointCreator(1000, winHei, qualityX, qualityY, seed, colorQuality, imageTitle, imageExtension, renderer);
-		PointCreator pc = PointCreator((int)(winHei * pcTEMP.returnRatio()), winHei, qualityX, qualityY, seed, colorQuality, imageTitle, imageExtension, renderer);
+		PointCreator pcTEMP = PointCreator(1000, winHei, qualityX, qualityY, seed, colorQuality, imageTitle, imageExtension, renderer, false);
+		PointCreator pc = PointCreator((int)(winHei * pcTEMP.returnRatio()), winHei, qualityX, qualityY, seed, colorQuality, imageTitle, imageExtension, renderer, true);
 
 		SDL_SetWindowSize(window, (int)(winHei * pc.returnRatio()), winHei);
 		SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);

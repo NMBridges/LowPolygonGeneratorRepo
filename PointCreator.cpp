@@ -356,6 +356,7 @@ private:
 	int* workingIndex;
 	SDL_Texture* imageTex;
 	SDL_Surface* imageSurf;
+	SDL_Texture* outputImageTex;
 	Vector4* colors;
 	int roundScale = 1;
 	std::string imageTitle;
@@ -363,19 +364,21 @@ private:
 
 public:
 
-	PointCreator(int width, int height, int xdet, int ydet, int seedin, int roundS, std::string fileName, std::string fileType, SDL_Renderer* rend)
+	PointCreator(int width, int height, int xdet, int ydet, int seedin, int roundS, std::string fileName, std::string fileType, SDL_Renderer* rend, bool addVariables)
 	{
-		xdetail = xdet;
-		ydetail = ydet;
-		detailSquared = xdetail * ydetail;
-		x = new double[detailSquared];
-		y = new double[detailSquared];
-		length = factOverFact(detailSquared, detailSquared - 3) / factorial(3);
-		seed = seedin;
-		roundScale = roundS;
-		triangles = new Vector3Int[length];
-		workingIndex = new int[length];
-
+		if (addVariables)
+		{
+			xdetail = xdet;
+			ydetail = ydet;
+			detailSquared = xdetail * ydetail;
+			x = new double[detailSquared];
+			y = new double[detailSquared];
+			length = factOverFact(detailSquared, detailSquared - 3) / factorial(3);
+			seed = seedin;
+			roundScale = roundS;
+			triangles = new Vector3Int[length];
+			workingIndex = new int[length];
+		}
 		// create texture
 
 		imageTitle = fileName;
@@ -396,8 +399,8 @@ public:
 		colors = new Vector4[imageSurf->w * imageSurf->h];
 		colors[0] = Vector4(0.0, 0.0, 0.0, 0.0);
 
-		windowHeight = height;
-		windowWidth = (int)(height * returnRatio());
+		windowHeight = imageSurf->w;//height;
+		windowWidth = imageSurf->h;//int)(height * returnRatio());
 	}
 
 	void createPoints(int xdetailLevel, int ydetailLevel)
@@ -497,6 +500,27 @@ public:
 		t14.join();
 		t15.join();
 		t16.join();
+		
+
+		int w, h;
+		Uint32 formatC;
+		SDL_QueryTexture(imageTex, &formatC, NULL, &w, &h);
+
+		outputImageTex = SDL_CreateTexture(rend, formatC, SDL_TEXTUREACCESS_STREAMING, imageSurf->w, imageSurf->h);
+
+		Uint32* pixelsD = NULL;
+		int pitchD = 0;
+		Uint32 formatD;
+
+		SDL_QueryTexture(outputImageTex, &formatD, NULL, &w, &h);
+
+		if (SDL_LockTexture(outputImageTex, NULL, (void**)&pixelsD, &pitchD) != 0)
+		{
+			std::cout << SDL_GetError() << std::endl;
+		}
+
+		SDL_PixelFormat pixelFormatD;
+		pixelFormatD.format = formatD;
 
 		int counter = 0;
 		for (int hori = 0; hori < windowWidth; hori++)
@@ -622,11 +646,19 @@ public:
 
 				//std::cout << "RGB:  (" << (((int)cOLOR.x) / roundScale) * roundScale << ", " << (((int)cOLOR.y) / roundScale) * roundScale << ", " << (((int)cOLOR.z) / roundScale) * roundScale << ")    HSV:  (" << hCol << ", " << sCol << ", " << vCol << ")   Converted RGB:  (" << rCol << ", " << gCol << ", " << bCol << ")" << std::endl;
 
-				SDL_SetRenderDrawColor(rend, (Uint8)rCol, (Uint8)gCol, (Uint8)bCol, 255);
-				SDL_RenderDrawPoint(rend, hori, vert);
+				Uint32 pixelPosition = vert * (pitchD / sizeof(unsigned int)) + hori;
+				pixelsD[pixelPosition] = SDL_MapRGB(imageSurf->format, bCol, gCol, rCol);
+				
+				//SDL_SetRenderDrawColor(rend, (Uint8)rCol, (Uint8)gCol, (Uint8)bCol, 255);
+				//SDL_RenderDrawPoint(rend, hori, vert);
 				counter++;
 			}
 		}
+
+		SDL_UnlockTexture(outputImageTex);
+
+		SDL_RenderCopy(rend, outputImageTex, NULL, NULL);
+		SDL_RenderPresent(rend);
 
 		for (int i = 0; i < usedLength; i++)
 		{
@@ -775,21 +807,39 @@ public:
 
 	void saveImage(SDL_Renderer* rend, SDL_Window* wind)
 	{
+		int widt, heig;
 
-		SDL_Surface* pScreenShot = SDL_CreateRGBSurface(0, windowWidth, windowHeight, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+		SDL_Texture* target = SDL_GetRenderTarget(rend);
 
-		if (pScreenShot)
+		SDL_QueryTexture(outputImageTex, NULL, NULL, &widt, &heig);
+		SDL_Texture* renderTexture = SDL_CreateTexture(rend, imageSurf->format->format, SDL_TEXTUREACCESS_TARGET, widt, heig);
+
+		SDL_SetRenderTarget(rend, renderTexture);
+
+		SDL_SetRenderDrawColor(rend, 0x00, 0x00, 0x00, 0x00);
+		SDL_RenderClear(rend);
+
+		SDL_RenderCopy(rend, outputImageTex, NULL, NULL);
+
+		void* pixelsE = malloc(widt * heig * SDL_BYTESPERPIXEL(imageSurf->format->format));
+
+		SDL_RenderReadPixels(rend, NULL, imageSurf->format->format, pixelsE, widt * SDL_BYTESPERPIXEL(imageSurf->format->format));
+
+		SDL_Surface* newSurface = SDL_CreateRGBSurfaceWithFormatFrom(pixelsE, widt, heig, SDL_BITSPERPIXEL(imageSurf->format->format), widt * SDL_BYTESPERPIXEL(imageSurf->format->format), imageSurf->format->format);
+
+		if (newSurface)
 		{
 			// Read the pixels from the current render target and save them onto the surface
-			SDL_RenderReadPixels(rend, NULL, SDL_GetWindowPixelFormat(wind), pScreenShot->pixels, pScreenShot->pitch);
+			//SDL_RenderReadPixels(rend, NULL, SDL_GetWindowPixelFormat(wind), newSurface->pixels, newSurface->pitch);
 
 			// Create the bmp screenshot file
-			std::string screenshotPath = "outputs/" + imageTitle + "-" + std::to_string(xdetail) + "-" + std::to_string(ydetail) + "-" + std::to_string(roundScale) + ".bmp";
-			SDL_SaveBMP(pScreenShot, screenshotPath.c_str());
+			std::string screenshotPath = "outputs/" + imageTitle + "-" + std::to_string(xdetail) + "-" + std::to_string(ydetail) + "-" + std::to_string(roundScale) + ".png";
+			IMG_SavePNG(newSurface, screenshotPath.c_str());
 
 			// Destroy the screenshot surface
-			SDL_FreeSurface(pScreenShot);
+			SDL_FreeSurface(newSurface);
 		}
 
+		SDL_SetRenderTarget(rend, target);
 	}
 };
