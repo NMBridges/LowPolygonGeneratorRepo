@@ -365,7 +365,7 @@ private:
 
 public:
 
-	PointCreator(int width, int height, int xdet, int ydet, int seedin, int roundS, std::string fileName, std::string fileType, SDL_Renderer* rend, bool addVariables)
+	PointCreator(int width, int height, int xdet, int ydet, int seedin, int roundS, std::string fileName, SDL_Renderer* rend, bool addVariables)
 	{
 		if (addVariables)
 		{
@@ -383,8 +383,7 @@ public:
 		// create texture
 
 		imageTitle = fileName;
-		imageExtension = fileType;
-		std::string stringPath = "assets/" + imageTitle + imageExtension;
+		std::string stringPath = "assets/" + imageTitle;
 
 		imageSurf = IMG_Load(stringPath.c_str());
 		if (!imageSurf)
@@ -435,11 +434,11 @@ public:
 			{
 				int item = (int)(i * xdetailLevel + q);
 				double amount1 = ((double)std::rand() / RAND_MAX - 0.5) * amount * 0.5;
-				double amount2 = ((double)std::rand() / RAND_MAX - 0.5) * amount * 0;
-				std::cout << amount1 << "   :   " << amount2 << std::endl;
+				double amount2 = ((double)std::rand() / RAND_MAX - 0.5) * amount * 0.5;
+				//std::cout << amount1 << "   :   " << amount2 << std::endl;
 				double perc1 = (q == 0 || q == xdetailLevel - 1) ? 0 : amount1 / ((double)xdetailLevel - 1.0);
 				double perc2 = (i == 0 || i == ydetailLevel - 1) ? 0 : amount2 / ((double)ydetailLevel - 1.0);
-				std::cout << perc1 * 800 * windowWidth / windowHeight << "   ;   " << perc2 * 800 << std::endl;
+				//std::cout << perc1 * 800 * windowWidth / windowHeight << "   ;   " << perc2 * 800 << std::endl;
 				x[item] = x[item] + perc1;
 				y[item] = y[item] + perc2;
 				if (x[item] < 0.0)
@@ -752,6 +751,7 @@ public:
 	bool comparePoints(int a, int b)
 	{
 		int distance = std::min(std::abs(xdetail - ydetail) + 3, std::max(xdetail, ydetail) / 3);
+		distance = 3;
 		for (int s = -1; s < distance; s++)
 		{
 			if (std::abs(a + (s + 1) * xdetail - b) <= distance)
@@ -763,10 +763,10 @@ public:
 				return true;
 			}
 		}
-		if (std::abs(a - b) <= 25 && (a == 1 || b == 1))
+		/*if (std::abs(a - b) <= 25 && (a == 1 || b == 1))
 		{
 			std::cout << "REMOVED: " << a << " + " << b << std::endl;
-		}
+		}*/
 		return false;
 	}
 
