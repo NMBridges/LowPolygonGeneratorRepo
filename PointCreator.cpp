@@ -750,7 +750,7 @@ public:
 
 	bool comparePoints(int a, int b)
 	{
-		int distance = std::min(std::abs(xdetail - ydetail) + 3, std::max(xdetail, ydetail) / 3);
+		int distance = std::min(std::abs(xdetail - ydetail) + 3, std::max(xdetail, ydetail) / 2);
 		distance = 3;
 		for (int s = -1; s < distance; s++)
 		{
